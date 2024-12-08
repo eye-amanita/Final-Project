@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Project 3 - AAA-ARS-AAL-TN-XPRAAAA
 
 This project started as an experimentation on pushing resolution compatibility, seeing what imagery and artifacting could occur when
@@ -39,10 +38,3 @@ artifacting that occurs with interaction.
 **Spacebar:** Reroll properties (Neutral Behavior Mode, Color Mode, Interactive Offset, Mouse Invert etc.)
 
 **S:** Save canvas .png
-
-
-
-
-=======
-# Final
->>>>>>> e1e03ccd5bd9b531159c3f25a6813cf14fac0b13
