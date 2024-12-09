@@ -1,4 +1,11 @@
-# Project 3 - AAA-ARS-AAL-TN-XPRAAAA
+# Final Project - Revision of Project 3 - AAA-ARS-AAL-TN-XPRAAAA
+
+Added sound + updated the placement of the main blocks to allow for random rotations in increments of 90 degrees. 
+Each neutral mode has a different type of oscillator wave tied to it allowing for different sound palettes that match the motion behavior. The Mouse-X for the mouseMoved behavior is matched
+
+Sound implemented with the help of [Patt Vira's Sound Mini Series](https://www.youtube.com/playlist?list=PL0beHPVMklwjGN8hR4ei-SJAY-AozCdQA) and [Patt Vira's p5.Envelope code](https://editor.p5js.org/pattvira/sketches/_f50yfrrS).
+
+## Original Project 3 Description:
 
 This project started as an experimentation on pushing resolution compatibility, seeing what imagery and artifacting could occur when
 making low resolution shapes and blowing them up to a much much larger scale. I wanted to channel a harsh, angular, and very digital 
@@ -27,11 +34,13 @@ resizing the window leads to additional variation, even within the same set of r
 I implemented a pause on mouse click function as well as a save image function to allow users to both slow down and save the erratic
 artifacting that occurs with interaction.
 
-**[View Live](https://eye-amanita.github.io/Project-3/)**
+**[View Live](https://eye-amanita.github.io/Final-Project/)**
 
 ## Controls:
 
 **Move Mouse:** Control Interactive Drawing Feature
+
+**P:** Start audio
 
 **Mouse Click:** Pause movement
 
