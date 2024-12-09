@@ -71,7 +71,7 @@ function setup() {
   let releaseLevel = 0;
   
   let attackTime = 0;
-  let decayTime = 1;
+  let decayTime = .2;
   let releaseTime = .1;
   
   env.setRange(attackLevel, releaseLevel);
