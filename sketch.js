@@ -24,6 +24,10 @@ let mouseInvert = false;
 let offsetRange;
 let counter = 0;
 
+let osc, freq;
+let noteTimer;
+let play = false;
+
 
 
 
@@ -34,12 +38,12 @@ function setup() {
   setAttributes('antialias', true);
   canvas.imageSmoothingEnabled = false;
   cg = createGraphics(5 , 5);
-  // cg.colorMode(HSB);
+ 
   cg.noSmooth();
   cg.strokeWeight(0);
   cg.fill(20,200,50); //Pink RGB
   cg.fill(255,255,255); //Black RGB
-  // cg.background(255,0,0);
+ 
   
   cg.square(0,0, 1);
   
@@ -58,9 +62,23 @@ function setup() {
   randomWalkScaleFactorX = random(.02,.15);
   randomWalkScaleFactorY = random(.02,.15);
 
-  offsetRange = random(width*.05,width*.175);
+  offsetRange = random(width*0,width*.1);
 
-  // neutralMode = random(modeArray);
+ 
+  env = new p5.Envelope();
+   let attackLevel = .2;
+  let sustainRatio = 1;
+  let releaseLevel = 0;
+  
+  let attackTime = 0;
+  let decayTime = 1;
+  let releaseTime = .1;
+  
+  env.setRange(attackLevel, releaseLevel);
+  env.setADSR(attackTime, decayTime, sustainRatio, releaseTime);
+  osc = new p5.Oscillator();
+  
+
   frameRate(20);
   
 
@@ -68,6 +86,7 @@ function setup() {
 
 function draw() {
 let prob = random (0,1);
+
 
 
  print(neutralMode);
@@ -111,7 +130,7 @@ blendMode(BLEND);
   
 }
 
-function mouseMoved(){
+function mouseMoved() {
   timer = 0;
   if (timer <2){
     if (pause == false){
@@ -123,24 +142,40 @@ function mouseMoved(){
       if (mouseInvert == false){
       let scatterY = random(mouseY-offsetRange, mouseY+offsetRange);
       let scatterX = random(mouseX-offsetRange, mouseX+offsetRange);
-      let scaleBlock = random (.2,.7);
+      let scaleBlock = random (.075,.4);
       let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
-      push();
-        translate(scatterX,scatterY);
-        rotate(rotateBlock);
-        image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
-      pop();
+      play = !play;
+      frequency = map(scatterX, 0, width, 50, 300);
+      if (play) {
+        env.play();
+        osc.freq(frequency);
+          push();
+            translate(scatterX,scatterY);
+            rotate(rotateBlock);
+            image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
+          pop();
+        play = false;
       } 
+    }
 
       if (mouseInvert == true){
         
           let scatterY = random(height-mouseY-offsetRange, height-mouseY+offsetRange);
           let scatterX = random(width-mouseX-offsetRange, width-mouseX+offsetRange);
-          push();
-            translate(scatterX,scatterY);
-           rotate(rotateBlock);
-           image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
-          pop();
+          let scaleBlock = random (.075,.4);
+          let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
+          play = !play;
+          frequency = map(scatterX, 0, width, 50, 300);
+          if (play) {
+            env.play();
+            osc.freq(frequency);
+              push();
+                translate(scatterX,scatterY);
+              rotate(rotateBlock);
+              image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
+              pop();
+            play = false;
+          }
       }
       timer = timer-1;
     }
@@ -170,6 +205,11 @@ function keyPressed(){
   if (key == 's' || key == 'S'){
     saveCanvas('capture'+counter,'png');
     counter = counter + 1;
+  }
+
+  if (key == 'p' || key == 'P'){
+    osc.start();
+    osc.amp(env);
   }
 
 }
