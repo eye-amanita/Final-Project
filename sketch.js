@@ -266,12 +266,13 @@ function touchMoved(){
       }
       timer = timer-1;
     }
-  }t
+  }
 }
 
 function randomWalkNeutral(randomWalkScaleFactorX,randomWalkScaleFactorY){
   if (timer == 2) {
       blendMode(EXCLUSION);
+        let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
         let scatterY = random(mouseY-100, mouseY+100);
         let scatterX = random(mouseX-100, mouseX+100);
         let scaleBlock = random (.2,.65);
@@ -283,7 +284,12 @@ function randomWalkNeutral(randomWalkScaleFactorX,randomWalkScaleFactorY){
             osc.freq(frequency);
             play = false;
           }
-        image(cg, x, y, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
+          push();
+              translate(x,y);
+              rotate(rotateBlock);
+              image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
+              pop();
+        // image(cg, x, y, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
         const r = floor(random(4));
       switch (r) {
         case 0:
