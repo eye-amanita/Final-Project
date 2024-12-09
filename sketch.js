@@ -20,6 +20,7 @@ let randomWalkScaleFactorY;
 
 let invertProb;
 let mouseInvert = false;
+let rotateProb;
 
 let offsetRange;
 let counter = 0;
@@ -181,7 +182,7 @@ function mouseMoved() {
         frequency = round(map(scatterX, 0, width, 20, 100));
       }
       if (neutralMode == 2){
-        frequency = round(map(scatterX, 0, width, 100, 500));
+        frequency = round(map(scatterX, 0, width, 200, 500));
       }
       if (play) {
         env.play();
@@ -333,6 +334,7 @@ if (timer == 2) {
   blendMode(EXCLUSION);
     // scaleBlock = .4;
     
+    let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
     play = !play;
           frequency = round(map(xGridWalk, 0, width, 100, 300));
           if (play) {
@@ -341,7 +343,16 @@ if (timer == 2) {
             osc.freq(frequency);
             play = false;
           }
-    image(cg, xGridWalk, yGridWalk, scaleBlock*width, scaleBlock*width);
+    if(rotateProb >.5){
+          push();
+          translate(xGridWalk,yGridWalk);
+          rotate(rotateBlock);
+          image(cg, 0, 0, (scaleBlock)*width, (scaleBlock)*width);
+          pop();
+} if (rotateProb <.5){
+  image(cg, xGridWalk, yGridWalk, scaleBlock*width, scaleBlock*width);
+}
+   
     
     xGridWalk = xGridWalk+((scaleBlock*width)/4);
     
@@ -451,6 +462,8 @@ function reroll(){
   randomWalkScaleFactorY = random(.02,.15); 
 
   offsetRange = random(width*.05,width*.175);
+
+  rotateProb = random(0,1);
 
   print(offsetRange);
 
