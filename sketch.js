@@ -180,6 +180,9 @@ function mouseMoved() {
       if (neutralMode == 4){
         frequency = round(map(scatterX, 0, width, 20, 100));
       }
+      if (neutralMode == 2){
+        frequency = round(map(scatterX, 0, width, 100, 500));
+      }
       if (play) {
         env.play();
         osc.setType(waveType);
@@ -331,7 +334,7 @@ if (timer == 2) {
     // scaleBlock = .4;
     
     play = !play;
-          frequency = round(map(xGridWalk, 0, width, 50, 300));
+          frequency = round(map(xGridWalk, 0, width, 100, 300));
           if (play) {
             env.play();
             osc.setType(waveType);
