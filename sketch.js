@@ -131,7 +131,6 @@ if (neutralMode == 4){
   decayTime = .03;
   releaseTime = .2;
 
- 
 
   print(attackLevel);
 }
