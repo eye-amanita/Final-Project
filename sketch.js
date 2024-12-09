@@ -27,6 +27,7 @@ let counter = 0;
 let osc, freq;
 let noteTimer;
 let play = false;
+let waveType;
 
 
 
@@ -66,8 +67,8 @@ function setup() {
 
  
   env = new p5.Envelope();
-   let attackLevel = .2;
-  let sustainRatio = 1;
+  let attackLevel = .2;
+  let sustainRatio = .75;
   let releaseLevel = 0;
   
   let attackTime = 0;
@@ -93,15 +94,33 @@ let prob = random (0,1);
 
 if (neutralMode == 1){
   randomWalkNeutral(randomWalkScaleFactorX,randomWalkScaleFactorY);
+  waveType = 'triangle';
+  attackLevel = .2;
+  sustainRatio = .75;
+  releaseLevel = 0;
+  
+  attackTime = 0;
+  decayTime = .2;
+  releaseTime = .1;
 }
  if (neutralMode == 2){
   gridWalkNeutral(scaleBlock);
+  waveType  = 'sine';
 } 
 if (neutralMode == 3){
   spacedGridNeutral(scaleBlock);
+  waveType  = 'square';
 }
 if (neutralMode == 4){
   randomPlaceNeutral();
+  waveType  = 'sawtooth';
+  attackLevel = .01;
+  sustainRatio = .01;
+  releaseLevel = 0;
+  
+  attackTime = 0;
+  decayTime = .3;
+  releaseTime = .2;
 }
 
 
@@ -145,9 +164,10 @@ function mouseMoved() {
       let scaleBlock = random (.075,.4);
       let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
       play = !play;
-      frequency = map(scatterX, 0, width, 50, 300);
+      frequency = round(map(scatterX, 0, width, 50, 300));
       if (play) {
         env.play();
+        osc.setType(waveType);
         osc.freq(frequency);
           push();
             translate(scatterX,scatterY);
@@ -165,12 +185,13 @@ function mouseMoved() {
           let scaleBlock = random (.075,.4);
           let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
           play = !play;
-          frequency = map(scatterX, 0, width, 50, 300);
+          frequency = round(map(scatterX, 0, width, 50, 300));
           if (play) {
             env.play();
+            osc.setType(waveType);
             osc.freq(frequency);
               push();
-                translate(scatterX,scatterY);
+              translate(scatterX,scatterY);
               rotate(rotateBlock);
               image(cg, 0, 0, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
               pop();
@@ -254,6 +275,14 @@ function randomWalkNeutral(randomWalkScaleFactorX,randomWalkScaleFactorY){
         let scatterY = random(mouseY-100, mouseY+100);
         let scatterX = random(mouseX-100, mouseX+100);
         let scaleBlock = random (.2,.65);
+          play = !play;
+          frequency = round(map(x, 0, width, 50, 300));
+          if (play) {
+            env.play();
+            osc.setType(waveType);
+            osc.freq(frequency);
+            play = false;
+          }
         image(cg, x, y, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
         const r = floor(random(4));
       switch (r) {
@@ -280,7 +309,14 @@ if (timer == 2) {
   blendMode(EXCLUSION);
     // scaleBlock = .4;
     
-    
+    play = !play;
+          frequency = round(map(xGridWalk, 0, width, 50, 300));
+          if (play) {
+            env.play();
+            osc.setType(waveType);
+            osc.freq(frequency);
+            play = false;
+          }
     image(cg, xGridWalk, yGridWalk, scaleBlock*width, scaleBlock*width);
     
     xGridWalk = xGridWalk+((scaleBlock*width)/4);
@@ -303,7 +339,15 @@ function spacedGridNeutral(scaleBlock){
   if (timer == 2) {
     blendMode(EXCLUSION);
       //    
-      
+      play = !play;
+          frequency = round(map(xGridWalk, 0, width, 50, 300));
+          if (play) {
+            env.play();
+            osc.setType(waveType);
+            osc.freq(frequency);
+            play = false;
+          }
+
       image(cg, xGridWalk, yGridWalk, scaleBlock*width, scaleBlock*width);
       
       xGridWalk = xGridWalk+((scaleBlock)*scaleBlock*width);
@@ -325,9 +369,20 @@ function spacedGridNeutral(scaleBlock){
 function randomPlaceNeutral(){
   if (timer == 2) {
     blendMode(EXCLUSION);
+    
       let x = random(0, width);
       let y = random(0, height);
       let scaleBlock = random (.2,.65);
+
+      play = !play;
+      frequency = round(map(x, 0, width, 50, 300));
+      if (play) {
+        env.play();
+        osc.setType(waveType);
+        osc.freq(frequency);
+        play = false;
+      }
+
       image(cg, x, y, (1.25*scaleBlock)*width, (1.25*scaleBlock)*width);
 
     }
