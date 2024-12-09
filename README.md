@@ -1,7 +1,15 @@
 # Final Project - Revision of Project 3 - AAA-ARS-AAL-TN-XPRAAAA
 
-Added sound + updated the placement of the main blocks to allow for random rotations in increments of 90 degrees. 
-Each neutral mode has a different type of oscillator wave tied to it allowing for different sound palettes that match the motion behavior. The Mouse-X for the mouseMoved behavior is matched
+Added sound + updated the placement of the main blocks to allow for random rotations in increments of 90 degrees in the Mouse Move behavior and Random Walk behavior. Added subvariation to the grid walk neutral behavior.
+
+Each neutral mode has a different type of oscillator wave tied to it allowing for different sound palettes that match the motion behavior. 
+
+- Neutral Behavior 1: Random Walk + Triangle Wave
+- Neutral Behavior 2: Random Walk + Sine Wave
+- Neutral Behavior 3: Random Walk + Square Wave
+- Neutral Behavior 4: Random Walk + Sawtooth Wave
+
+The Mouse-X for the Mouse Moved behavior is mapped to the frequenct of the p5.Osc object, moving it further right on the screen increases the frequency.
 
 Sound implemented with the help of [Patt Vira's Sound Mini Series](https://www.youtube.com/playlist?list=PL0beHPVMklwjGN8hR4ei-SJAY-AozCdQA) and [Patt Vira's p5.Envelope code](https://editor.p5js.org/pattvira/sketches/_f50yfrrS).
 
