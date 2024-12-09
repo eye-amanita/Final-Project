@@ -79,6 +79,8 @@ function setup() {
   env.setADSR(attackTime, decayTime, sustainRatio, releaseTime);
   osc = new p5.Oscillator();
   
+  let delay = new p5.Delay(0.12, map(mouseY,0,height,0,1));
+  osc.connect(delay);
 
   frameRate(20);
   
@@ -110,17 +112,28 @@ if (neutralMode == 1){
 if (neutralMode == 3){
   spacedGridNeutral(scaleBlock);
   waveType  = 'square';
+  attackLevel = .01;
+  sustainRatio = .001;
+  releaseLevel = 0;
+  
+  attackTime = 0;
+  decayTime = .03;
+  releaseTime = .02;
 }
 if (neutralMode == 4){
   randomPlaceNeutral();
   waveType  = 'sawtooth';
   attackLevel = .01;
-  sustainRatio = .01;
+  sustainRatio = .001;
   releaseLevel = 0;
   
   attackTime = 0;
-  decayTime = .3;
+  decayTime = .03;
   releaseTime = .2;
+
+ 
+
+  print(attackLevel);
 }
 
 
@@ -165,6 +178,9 @@ function mouseMoved() {
       let rotateBlock = random ([0,PI/2,PI,(3*PI)/2]);
       play = !play;
       frequency = round(map(scatterX, 0, width, 50, 300));
+      if (neutralMode == 4){
+        frequency = round(map(scatterX, 0, width, 20, 100));
+      }
       if (play) {
         env.play();
         osc.setType(waveType);
@@ -381,7 +397,7 @@ function randomPlaceNeutral(){
       let scaleBlock = random (.2,.65);
 
       play = !play;
-      frequency = round(map(x, 0, width, 50, 300));
+      frequency = round(map(x, 0, width, 1, 160));
       if (play) {
         env.play();
         osc.setType(waveType);
